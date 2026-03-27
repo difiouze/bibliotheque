@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import BookCard from "../components/BookCard";
 
 const Home = () => {
-  const [fetchError, setFectchError] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
   const [books, setBooks] = useState(null);
 
   useEffect(()=> {
@@ -15,14 +15,14 @@ const Home = () => {
         .select()
 
         if(error) {
-          setFectchError('Livres non trouvés')
+          setFetchError('Livres non trouvés')
           setBooks(null)
           console.log(error)
         }
 
         if(data) {
           setBooks(data)
-          setFectchError(null)
+          setFetchError(null)
         }
     }
     fetchBooks()
