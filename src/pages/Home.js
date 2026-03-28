@@ -5,8 +5,9 @@ import BookCard from "../components/BookCard";
 
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
-  const [books, setBooks] = useState(null);
+  const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedCollection, setSelectedCollection] = useState("");
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -16,8 +17,9 @@ const Home = () => {
 
       if (error) {
         setFetchError('Livres non trouvés')
-        setBooks(null)
+        setBooks([])
         console.log(error)
+        return;
       }
 
       if (data) {
@@ -28,25 +30,30 @@ const Home = () => {
     fetchBooks()
   }, [])
 
-  const filteredBooks = books?.filter(book =>
-    book.title.toLowerCase().includes(search.toLowerCase())
-  )
+  const filteredBooks = books.filter(book => {
+    const matchesSearch = book.title.toLowerCase().includes(search.toLowerCase());
+    const matchesCollection = selectedCollection === "" || book.collection === selectedCollection;
+    return matchesSearch && matchesCollection;
+  });
 
   return (
     <div className="page home">
+      <Filter
+        search={search}
+        setSearch={setSearch}
+        setSelectedCollection={setSelectedCollection}
+        books={books}
+      />
 
-      <Filter search={search} setSearch={setSearch} />
+      {fetchError && <p>{fetchError}</p>}
 
-      {fetchError && (<p>{fetchError}</p>)}
-      {filteredBooks && (
-        <div className="books">
-          <div className="books-grid">
-            {filteredBooks.map(book => (
-              <BookCard key={book.id} book={book} />
-            ))}
-          </div>
+      <div className="books">
+        <div className="books-grid">
+          {filteredBooks.map(book => (
+            <BookCard key={book.id} book={book} />
+          ))}
         </div>
-      )}
+      </div>
     </div>
   )
 }
