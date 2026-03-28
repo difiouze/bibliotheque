@@ -1,44 +1,51 @@
 import supabase from "../config/supabaseClient"
 import { useEffect, useState } from "react"
-
-// components
+import Filter from "../components/Filter";
 import BookCard from "../components/BookCard";
 
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
   const [books, setBooks] = useState(null);
+  const [search, setSearch] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchBooks = async () => {
       const { data, error } = await supabase
         .from('livres')
         .select()
 
-        if(error) {
-          setFetchError('Livres non trouvés')
-          setBooks(null)
-          console.log(error)
-        }
+      if (error) {
+        setFetchError('Livres non trouvés')
+        setBooks(null)
+        console.log(error)
+      }
 
-        if(data) {
-          setBooks(data)
-          setFetchError(null)
-        }
+      if (data) {
+        setBooks(data)
+        setFetchError(null)
+      }
     }
     fetchBooks()
   }, [])
 
+  const filteredBooks = books?.filter(book =>
+    book.title.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <div className="page home">
+
+      <Filter search={search} setSearch={setSearch} />
+
       {fetchError && (<p>{fetchError}</p>)}
-      {books && (
-       <div className="books">
-         <div className="books-grid">
-          {books.map(book => (
-            <BookCard key={book.id} book={book}/>
-          ))}
+      {filteredBooks && (
+        <div className="books">
+          <div className="books-grid">
+            {filteredBooks.map(book => (
+              <BookCard key={book.id} book={book} />
+            ))}
+          </div>
         </div>
-       </div> 
       )}
     </div>
   )
