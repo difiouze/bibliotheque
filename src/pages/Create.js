@@ -39,7 +39,7 @@ const Create = () => {
   return (
     <div className="page create">
       <h2 className="form-title">Créer</h2>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={handleSubmit}>
         <label 
           htmlFor="book-title">
             Titre
