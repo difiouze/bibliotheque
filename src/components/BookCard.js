@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, onDelete }) => {
 
     const handleDelete = async () => {
         const { data, error } = await supabase
@@ -16,6 +16,7 @@ const BookCard = ({ book }) => {
 
         if (data) {
             console.log(data)
+            onDelete(book.id)
         }
     }
 
