@@ -36,6 +36,12 @@ const Home = () => {
     return matchesSearch && matchesCollection;
   });
 
+  const handleDelete = (id) => {
+    setBooks(prevBooks => {
+      return prevBooks.filter(book => book.id !== id)
+    })
+  }
+
   return (
     <div className="page home">
       <Filter
@@ -50,7 +56,7 @@ const Home = () => {
       <div className="books">
         <div className="books-grid">
           {filteredBooks.map(book => (
-            <BookCard key={book.id} book={book} />
+            <BookCard key={book.id} book={book} onDelete={handleDelete} />
           ))}
         </div>
       </div>
