@@ -8,12 +8,15 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCollection, setSelectedCollection] = useState("");
+  const [orderBy, setOrderBy] = useState("created_at");
+  const [ascendingOrder, setAscendingOrder] = useState(true)
 
   useEffect(() => {
     const fetchBooks = async () => {
       const { data, error } = await supabase
         .from('livres')
         .select()
+        .order(orderBy, { ascending: ascendingOrder} )
 
       if (error) {
         setFetchError('Livres non trouvés')
@@ -28,7 +31,7 @@ const Home = () => {
       }
     }
     fetchBooks()
-  }, [])
+  }, [orderBy, ascendingOrder])
 
   const filteredBooks = books.filter(book => {
     const matchesSearch = book.title.toLowerCase().includes(search.toLowerCase());
@@ -42,6 +45,11 @@ const Home = () => {
     })
   }
 
+const handleAscendingOrder = (e) => {
+  if (e.target.value === '') return;
+  setAscendingOrder(e.target.value === 'ascending-true')
+}
+
   return (
     <div className="page home">
       <Filter
@@ -54,6 +62,40 @@ const Home = () => {
       {fetchError && <p>{fetchError}</p>}
 
       <div className="books">
+        <div className="order-by">
+          <p>Classé par:</p>
+
+        <div className="order-by__btn-container">
+          <button 
+            onClick={()=> setOrderBy('created_at')}
+            className={orderBy === 'created_at' ? 'active' : ''}
+          >
+            Création
+          </button>
+          <button 
+            onClick={()=> setOrderBy('title')}
+            className={orderBy === 'title' ? 'active' : ''}
+          >
+            Titre
+          </button>
+          <button 
+            onClick={()=> setOrderBy('number')}
+            className={orderBy === 'number' ? 'active' : ''}
+          >
+            Numéro
+          </button>
+        
+        <select
+          name="order-option"
+          id="order-select"
+          onChange={handleAscendingOrder}
+        >
+            <option value="ascending-true">Ordre croissant</option>
+            <option value="ascending-false">Ordre décroissant</option>
+        </select>
+
+        </div>
+        </div>
         <div className="books-grid">
           {filteredBooks.map(book => (
             <BookCard key={book.id} book={book} onDelete={handleDelete} />

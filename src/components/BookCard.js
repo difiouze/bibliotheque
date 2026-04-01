@@ -22,8 +22,9 @@ const BookCard = ({ book, onDelete }) => {
 
     return (
     <div className="book-card">
-        <h3>{book.title}</h3>
-        <span>{book.collection}</span>
+        <h4>{book.title}</h4>
+        <span><b>Numéro:</b> {book.number}</span>
+        <span><b>Collection:</b> <em>{book.collection}</em></span>
         <div className="button">
             <Link to={'/' + book.id}>
                 <i className="material-icons">edit</i>
