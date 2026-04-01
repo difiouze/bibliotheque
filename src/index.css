@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
 
 :root {
-  --primary: #12bca2;
-  --secondary: #6d15df;
+  --primary: #683218;
+  --secondary: #f5cd90;
 }
 
 * {
   box-sizing: border-box;
 }
 
-h1,h2,h3 {
+h1,h2,h3, h4 {
   margin: 0;
 }
 
@@ -18,7 +18,19 @@ body {
   color: #333;
   font-family: 'Poppins';
   background: #f2f2f2;
+  background-image: url(../public/background-image-mobile.avif);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
+
+@media screen and (min-width: 741px) {
+  body {
+    background-image: url(../public/background-image.avif);
+  }
+}
+
 nav {
   background: var(--primary);
   padding: 10px 20px;
@@ -113,7 +125,7 @@ form textarea {
   align-items: center;
   max-width: 600px;
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 
 #collection-select {
@@ -121,4 +133,108 @@ form textarea {
   padding: 5px;
   margin-top: 10px;
   border-radius: 6px;
+}
+
+button,
+#order-select {
+  border-radius: 6px;
+  border: 0 none;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: white;
+}
+
+button.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.order-by {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.order-by p {
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.order-by__btn-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+}
+
+@media screen and (min-width: 471px) {
+    .order-by__btn-container {
+      flex-direction: row;
+      gap: 10px;
+    }
+}
+
+.order-by__btn-container button {
+  width: 100%;
+}
+
+/* Book Grid */
+
+.books-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (min-width: 471px) {
+    .books-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Book card */
+
+.book-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 15px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card h4 {
+  line-height: 20px;
+  margin-bottom: 10px;
+  min-height: 40px
+}
+
+.book-card span {
+  font-size: 13px;
+}
+
+.book-card .button {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+/* Icones */
+
+i.material-icons {
+  cursor: pointer;
+  background-color: var(--secondary);
+  color: var(--primary);
+  padding: 5px;
+  margin: 5px;
+  border-radius: 50%;
+  font-size: 20px;
 }
