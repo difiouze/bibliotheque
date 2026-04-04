@@ -238,3 +238,24 @@ i.material-icons {
   border-radius: 50%;
   font-size: 20px;
 }
+
+/* Login Register*/
+
+.login-form {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 30vh;
+  text-align: center;
+}
+
+.login-form__title {
+  margin-bottom: 20px;
+}
+
+.login-form__button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: var(--secondary);
+  border: 1px solid var(--primary);
+}
