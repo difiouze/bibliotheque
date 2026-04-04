@@ -1,6 +1,12 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import supabase from "../config/supabaseClient";
+import fetchIsbn from "../services/fetchIsbn";
+
+// Components
+
+import IsbnSearchInput from "../components/IsbnSearchInput"
+
 
 const Create = () => {
 
@@ -10,7 +16,26 @@ const Create = () => {
   const [collection, setCollection] = useState('');
   const [number, setNumber] = useState('');
   const [description, setDescription] = useState('');
-  const [formError, setFormError] = useState(null)
+  const [formError, setFormError] = useState(null);
+  const [isbnInput, setIsbnInput] = useState('')
+  const [isbnError, setIsbnError] = useState(null)
+
+  const isbnHandleSearch = async () => {
+    try {
+      const data = await fetchIsbn(isbnInput)
+      setIsbnError(null)
+      console.log(data)
+      setTitle(data.title || '')
+      setNumber(data?.seriesInfo?.bookDisplayNumber || '')
+      setDescription(data.description || '')
+    }
+
+    catch(error) {
+      setIsbnError('Livre introuvable, vérifiez l\'ISBN')
+    }
+
+    
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -39,6 +64,9 @@ const Create = () => {
   return (
     <div className="page create">
       <h2 className="form-title">Créer</h2>
+
+      <IsbnSearchInput isbnHandleSearch={isbnHandleSearch} setIsbnInput={setIsbnInput} isbnError={isbnError}/>
+      
       <form onSubmit={handleSubmit}>
         <label 
           htmlFor="book-title">

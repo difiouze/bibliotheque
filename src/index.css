@@ -259,3 +259,23 @@ i.material-icons {
   background-color: var(--secondary);
   border: 1px solid var(--primary);
 }
+
+/* Isbn Search */
+
+.isbn-search {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.isbn-error__container {
+  height: 25px;
+  position: relative;
+  margin-bottom: 20px;
+      text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
