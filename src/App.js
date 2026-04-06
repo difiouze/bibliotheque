@@ -35,7 +35,7 @@ const logout = async () => {
     <BrowserRouter>
       {session ? <>
           <nav>
-            <h1>Bibliothèque</h1>
+            <h1 className="logo-title">Bibliothèque</h1>
             <Link to="/">Home</Link>
             <Link to="/create">Ajouter un livre</Link>
             <Link onClick={logout}>Log out</Link>

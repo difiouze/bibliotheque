@@ -112,7 +112,7 @@ const Create = () => {
           onChange={(e) => setDescription(e.target.value)}
         >
         </textarea>
-        <button>Ajouter</button>
+        <button className="button button--primary">Ajouter</button>
       </form>
       { formError && <span className="form-error">{formError}</span>}
     </div>

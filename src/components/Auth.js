@@ -56,6 +56,7 @@ const Auth = () => {
         />
         <button
           type="submit"
+          className="button button--primary"
         >
           {isSignUp ? "S'enregistrer" : "Se connecter"}
         </button>
