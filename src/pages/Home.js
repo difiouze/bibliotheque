@@ -8,7 +8,7 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCollection, setSelectedCollection] = useState("");
-  const [orderBy, setOrderBy] = useState("created_at");
+  const [orderBy, setOrderBy] = useState("title");
   const [ascendingOrder, setAscendingOrder] = useState(true)
 
   useEffect(() => {
@@ -67,12 +67,6 @@ const handleAscendingOrder = (e) => {
 
         <div className="order-by__btn-container">
           <button 
-            onClick={()=> setOrderBy('created_at')}
-            className={orderBy === 'created_at' ? 'active' : ''}
-          >
-            Création
-          </button>
-          <button 
             onClick={()=> setOrderBy('title')}
             className={orderBy === 'title' ? 'active' : ''}
           >
@@ -84,7 +78,12 @@ const handleAscendingOrder = (e) => {
           >
             Numéro
           </button>
-        
+          <button 
+            onClick={()=> setOrderBy('created_at')}
+            className={orderBy === 'created_at' ? 'active' : ''}
+          >
+            Création
+          </button>        
         <select
           name="order-option"
           id="order-select"

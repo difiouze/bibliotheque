@@ -10,7 +10,7 @@ const IsbnSearchInput = ({ isbnHandleSearch, setIsbnInput, isbnError }) => {
             placeholder="Veuillez rentrer un ISBN"
             >
             </input>
-            <button onClick={isbnHandleSearch}>Rechercher</button>
+            <button className="button button--primary" onClick={isbnHandleSearch}>Rechercher</button>
         </div>
         <div className="isbn-error__container">
             {isbnError && <span className="isbn-error">{isbnError}</span>}
