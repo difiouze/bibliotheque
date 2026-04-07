@@ -56,6 +56,7 @@ const Home = () => {
   const paginatedItems = filteredBooks.slice(offset, offset + itemsPerPage);
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDelete = (id) => {
