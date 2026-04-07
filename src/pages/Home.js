@@ -2,6 +2,7 @@ import supabase from "../config/supabaseClient"
 import { useEffect, useState } from "react"
 import Filter from "../components/Filter";
 import BookCard from "../components/BookCard";
+import ReactPaginate from "react-paginate";
 
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
@@ -9,7 +10,18 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [selectedCollection, setSelectedCollection] = useState("");
   const [orderBy, setOrderBy] = useState("title");
-  const [ascendingOrder, setAscendingOrder] = useState(true)
+  const [ascendingOrder, setAscendingOrder] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setCurrentPage(0);
+  };
+
+  const handleCollectionChange = (value) => {
+    setSelectedCollection(value);
+    setCurrentPage(0);
+  };
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -39,6 +51,13 @@ const Home = () => {
     return matchesSearch && matchesCollection;
   });
 
+  const itemsPerPage = 12;
+  const offset = currentPage * itemsPerPage;
+  const paginatedItems = filteredBooks.slice(offset, offset + itemsPerPage);
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
   const handleDelete = (id) => {
     setBooks(prevBooks => {
       return prevBooks.filter(book => book.id !== id)
@@ -54,8 +73,8 @@ const handleAscendingOrder = (e) => {
     <div className="page home">
       <Filter
         search={search}
-        setSearch={setSearch}
-        setSelectedCollection={setSelectedCollection}
+        setSearch={handleSearchChange}
+        setSelectedCollection={handleCollectionChange}
         books={books}
       />
 
@@ -96,10 +115,26 @@ const handleAscendingOrder = (e) => {
         </div>
         </div>
         <div className="books-grid">
-          {filteredBooks.map(book => (
+          {paginatedItems.map(book => (
             <BookCard key={book.id} book={book} onDelete={handleDelete} />
           ))}
         </div>
+        <ReactPaginate
+          forcePage={currentPage}
+          previousLabel={"Précédent"}
+          nextLabel={"Suivant"}
+          breakLabel={"..."}
+          pageCount={Math.ceil(filteredBooks.length / itemsPerPage)}
+          marginPagesDisplayed={5}
+          pageRangeDisplayed={2}
+          onPageChange={handlePageChange}
+          containerClassName="pagination"
+          activeClassName="pagination__active"
+          pageLinkClassName="pagination__link"
+          previousLinkClassName="pagination__prev-next"
+          nextLinkClassName="pagination__prev-next"
+          disabledClassName="pagination__disabled"
+        />
       </div>
     </div>
   )
