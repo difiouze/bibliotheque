@@ -27,14 +27,20 @@ body {
   margin: 0;
   color: $text-color;
   font-family: 'Poppins';
-  background-image: url(../public/background-image-mobile.avif);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  position: relative; 
 
-  @media screen and (min-width: $breakpoint-md) {
-    background-attachment: fixed;
-    background-image: url(../public/background-image.avif);
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0; 
+    z-index: -1;
+    background-image: url(../public/background-image-mobile.avif);
+    background-size: cover;
+    background-position: center;
+
+    @media screen and (min-width: $breakpoint-md) {
+      background-image: url(../public/background-image.avif);
+    }
   }
 }
 
