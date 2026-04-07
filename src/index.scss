@@ -150,10 +150,6 @@ button,
   }
 }
 
-#order-select {
-    text-align: center;
-}
-
 // ─── Forms ───────────────────────────────────────────────────────────────────
 
 form {
@@ -363,4 +359,46 @@ i.material-icons {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+// ─── Pagination ─────────────────────────────────────────────────────────────
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  list-style: none;
+  padding: 0;
+
+  &__link {
+    border: 1px solid $primary;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: $text-color;
+
+    &:hover { background-color: $secondary; }
+  }
+
+  &__active a {
+    background-color: $primary;
+    color: $white;
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+
+  &__prev-next {
+    background-color: $primary;
+    border: 1px solid $primary;
+    color: $white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover { background-color: $secondary; color: $text-color; border: 1px solid $primary}
+  }
+
+  &__disabled { opacity: 0.5; pointer-events: none; }
 }
